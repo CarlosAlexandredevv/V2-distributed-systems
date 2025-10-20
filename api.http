@@ -8,3 +8,7 @@ Content-Type: application/json
   "name": "John Doe",
   "course": "Computer Science"
 }
+
+### List All Students
+GET {{baseURL}}/students
+Content-Type: application/json

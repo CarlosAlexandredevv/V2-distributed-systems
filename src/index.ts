@@ -4,10 +4,15 @@ import { CreateStudentUseCase } from './modules/students/useCases/create-student
 import { StudentRepository } from './modules/students/repositories/student-repository.js';
 import { ErrorHandlerMiddleware } from './middlewares/error-handler.middleware.js';
 import { AsyncHandlerMiddleware } from './middlewares/async-handler.middleware.js';
+import { ListAllStudentsUseCase } from './modules/students/useCases/list-all-students.usecase.js';
 
 const studentRepository = new StudentRepository();
 const createStudentUseCase = new CreateStudentUseCase(studentRepository);
-const studentsController = new StudentsController(createStudentUseCase);
+const listAllStudentsUseCase = new ListAllStudentsUseCase(studentRepository);
+const studentsController = new StudentsController(
+  createStudentUseCase,
+  listAllStudentsUseCase,
+);
 
 const app = express();
 
@@ -19,6 +24,13 @@ app.post(
   '/students',
   AsyncHandlerMiddleware.wrap((req: Request, res: Response) =>
     studentsController.create(req, res),
+  ),
+);
+
+app.get(
+  '/students',
+  AsyncHandlerMiddleware.wrap((req: Request, res: Response) =>
+    studentsController.listAll(req, res),
   ),
 );
 

@@ -13,4 +13,8 @@ export class StudentRepository {
       data: student,
     });
   }
+
+  async findAll(): Promise<Student[]> {
+    return this.prisma.student.findMany();
+  }
 }
