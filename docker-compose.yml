@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: crud-students
+    environment:
+      - POSTGRES_DB=crud-students
+      - POSTGRES_USER=crud-students
+      - POSTGRES_PASSWORD=crud-students
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U crud-students -d crud-students']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  pgdata:

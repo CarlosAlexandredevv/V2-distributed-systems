@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/CarlosAlexandredevv/V2-distributed-systems#readme",
   "dependencies": {
+    "@prisma/client": "^6.17.1",
     "express": "^5.1.0",
     "typescript": "^5.9.3"
   },
