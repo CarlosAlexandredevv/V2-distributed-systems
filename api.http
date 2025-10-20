@@ -1,0 +1,10 @@
+@baseURL = http://localhost:3001
+
+### Create Student
+POST {{baseURL}}/students
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "course": "Computer Science"
+}
