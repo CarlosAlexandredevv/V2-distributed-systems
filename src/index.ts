@@ -6,6 +6,7 @@ import { ErrorHandlerMiddleware } from './middlewares/error-handler.middleware.j
 import { AsyncHandlerMiddleware } from './middlewares/async-handler.middleware.js';
 import { ListAllStudentsUseCase } from './modules/students/useCases/list-all-students.usecase.js';
 import { UpdateStudentByIdUseCase } from './modules/students/useCases/update-student-by-id.use.case.js';
+import { DeleteStudentByIdUseCase } from './modules/students/useCases/delete-student-by-id.usecase.js';
 
 const studentRepository = new StudentRepository();
 const createStudentUseCase = new CreateStudentUseCase(studentRepository);
@@ -13,10 +14,15 @@ const listAllStudentsUseCase = new ListAllStudentsUseCase(studentRepository);
 const updateStudentByIdUseCase = new UpdateStudentByIdUseCase(
   studentRepository,
 );
+const deleteStudentByIdUseCase = new DeleteStudentByIdUseCase(
+  studentRepository,
+);
+
 const studentsController = new StudentsController(
   createStudentUseCase,
   listAllStudentsUseCase,
   updateStudentByIdUseCase,
+  deleteStudentByIdUseCase,
 );
 
 const app = express();
@@ -43,6 +49,13 @@ app.put(
   '/students/:id',
   AsyncHandlerMiddleware.wrap((req: Request, res: Response) =>
     studentsController.updateById(req, res),
+  ),
+);
+
+app.delete(
+  '/students/:id',
+  AsyncHandlerMiddleware.wrap((req: Request, res: Response) =>
+    studentsController.deleteById(req, res),
   ),
 );
 

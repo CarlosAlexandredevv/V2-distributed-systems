@@ -16,11 +16,7 @@ export class UpdateStudentByIdUseCase {
         throw new Error('Student not found');
       }
 
-      const updatedStudent = await this.repo.updateById(id, student);
-
-      if (!updatedStudent) {
-        throw new Error('Student not found');
-      }
+      await this.repo.updateById(id, student);
 
       return { message: 'Student updated successfully' };
     } catch (error) {

@@ -4,12 +4,14 @@ import { CreateStudentDto } from '../dtos/create-student.dto.js';
 import { ListAllStudentsUseCase } from '../useCases/list-all-students.usecase.js';
 import { UpdateStudentByIdDto } from '../dtos/update-student.dto.js';
 import { UpdateStudentByIdUseCase } from '../useCases/update-student-by-id.use.case.js';
+import { DeleteStudentByIdUseCase } from '../useCases/delete-student-by-id.usecase.js';
 
 export class StudentsController {
   constructor(
     private readonly createStudentUseCase: CreateStudentUseCase,
     private readonly listAllStudentsUseCase: ListAllStudentsUseCase,
     private readonly updateStudentByIdUseCase: UpdateStudentByIdUseCase,
+    private readonly deleteStudentByIdUseCase: DeleteStudentByIdUseCase,
   ) {}
 
   async create(req: Request, res: Response) {
@@ -31,6 +33,12 @@ export class StudentsController {
       id as string,
       validatedData,
     );
+    res.status(200).json(result);
+  }
+
+  async deleteById(req: Request, res: Response) {
+    const { id } = req.params;
+    const result = await this.deleteStudentByIdUseCase.execute(id as string);
     res.status(200).json(result);
   }
 }

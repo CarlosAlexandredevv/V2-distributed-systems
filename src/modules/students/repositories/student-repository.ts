@@ -27,25 +27,16 @@ export class StudentRepository {
     return student;
   }
 
-  async updateById(
-    id: string,
-    student: UpdateStudentByIdDto,
-  ): Promise<Student | null> {
-    try {
-      const updatedStudent = await this.prisma.student.update({
-        where: { id },
-        data: student,
-      });
+  async updateById(id: string, student: UpdateStudentByIdDto): Promise<void> {
+    await this.prisma.student.update({
+      where: { id },
+      data: student,
+    });
+  }
 
-      return updatedStudent;
-    } catch (error) {
-      if (
-        error instanceof Error &&
-        error.message.includes('Record to update not found')
-      ) {
-        return null;
-      }
-      throw error;
-    }
+  async deleteById(id: string): Promise<void> {
+    await this.prisma.student.delete({
+      where: { id },
+    });
   }
 }

@@ -14,10 +14,14 @@ GET {{baseURL}}/students
 Content-Type: application/json
 
 ### Update Student by ID
-PUT {{baseURL}}/students/0f10c87c-7781-499d-9ff1-76d3401f70d6
+PUT {{baseURL}}/students/ab3f60fb-e27c-40a6-8628-4c90b5036136
 Content-Type: application/json
 
 {
   "name": "John Doe atualizado",
   "course": "Computer Science atualizado"
 }
+
+### Delete Student by ID
+DELETE {{baseURL}}/students/ab3f60fb-e27c-40a6-8628-4c90b5036136
+Content-Type: application/json
