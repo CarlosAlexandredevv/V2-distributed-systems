@@ -12,3 +12,12 @@ Content-Type: application/json
 ### List All Students
 GET {{baseURL}}/students
 Content-Type: application/json
+
+### Update Student by ID
+PUT {{baseURL}}/students/0f10c87c-7781-499d-9ff1-76d3401f70d6
+Content-Type: application/json
+
+{
+  "name": "John Doe atualizado",
+  "course": "Computer Science atualizado"
+}

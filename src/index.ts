@@ -5,13 +5,18 @@ import { StudentRepository } from './modules/students/repositories/student-repos
 import { ErrorHandlerMiddleware } from './middlewares/error-handler.middleware.js';
 import { AsyncHandlerMiddleware } from './middlewares/async-handler.middleware.js';
 import { ListAllStudentsUseCase } from './modules/students/useCases/list-all-students.usecase.js';
+import { UpdateStudentByIdUseCase } from './modules/students/useCases/update-student-by-id.use.case.js';
 
 const studentRepository = new StudentRepository();
 const createStudentUseCase = new CreateStudentUseCase(studentRepository);
 const listAllStudentsUseCase = new ListAllStudentsUseCase(studentRepository);
+const updateStudentByIdUseCase = new UpdateStudentByIdUseCase(
+  studentRepository,
+);
 const studentsController = new StudentsController(
   createStudentUseCase,
   listAllStudentsUseCase,
+  updateStudentByIdUseCase,
 );
 
 const app = express();
@@ -31,6 +36,13 @@ app.get(
   '/students',
   AsyncHandlerMiddleware.wrap((req: Request, res: Response) =>
     studentsController.listAll(req, res),
+  ),
+);
+
+app.put(
+  '/students/:id',
+  AsyncHandlerMiddleware.wrap((req: Request, res: Response) =>
+    studentsController.updateById(req, res),
   ),
 );
 

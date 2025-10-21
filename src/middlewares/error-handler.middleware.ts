@@ -60,6 +60,14 @@ export class ErrorHandlerMiddleware {
       });
     }
 
+    // Tratar erro de estudante não encontrado
+    if (error.message.includes('Student not found')) {
+      return res.status(404).json({
+        error: 'Student not found',
+        message: 'The requested student does not exist',
+      });
+    }
+
     // Tratar outros erros conhecidos
     if (error instanceof Error) {
       return res.status(500).json({
